@@ -1,50 +1,78 @@
 package com.sibgatullinvv.insidedemoproject;
 
+import com.sibgatullinvv.insidedemoproject.controller.AuthenticationController;
 import com.sibgatullinvv.insidedemoproject.model.User;
 import com.sibgatullinvv.insidedemoproject.services.MessageService;
 import com.sibgatullinvv.insidedemoproject.services.UserService;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.ResponseEntity;
 
-/*
-В ближайшее время фуекционал тестирования будет значительно расширен. Пока познакомьтесь с Борисом.
- */
 
 @SpringBootTest
 class InsideDemoProjectApplicationTests {
-//
-//	@Autowired
-//	MessageService messageService;
-//	@Autowired
-//	UserService userService;
-//	private User boris;
-//
-//	{
-//		boris = new User();
-//		boris.setName( "BorisTapochek33");
-//		boris.setPassword("CoolBorisPassword99");
-//	}
-//
-//	// добавления пользовател в БД
-//	@Test
-//	@Order(1)
-//	void addingUserToDB() {
-//		User user = new User();
-//		user.setName("BorisTapochek33");
-//		user.setPassword("CoolBorisPassword99");
-//		userService.newUser(user);
-//		Assertions.assertNotNull(userService.getByLogin(user.getName()));
-//	}
-//
-//
-//	// удаление пользователя из БД
-//	@Test
-//	@Order(2)
-//	void deleteUserFromDB() {
-//		userService.deleteUser(boris.getName());
-//		Assertions.assertFalse(userService.isUserExist(boris.getName()));
-//	}
+
+	@Autowired
+	private MessageService messageService;
+	@Autowired
+    private UserService userService;
+    @Autowired
+    private AuthenticationController authenticationController;
+    private User boris;
+
+    @BeforeEach
+    public void setBoris(){
+        boris = new User();
+        boris.setName("BorisTapochek33");
+        boris.setPassword("CoolBorisPassword99");
+    }
+
+    @Test
+    void logInWithEmptyLogin() {
+        boris.setName("");
+        ResponseEntity responseEntity = authenticationController.loginUser(boris);
+        String[] response = responseEntity.getBody().toString().split("=");
+        Assertions.assertEquals( "«name» field empty or missing}",response[1]);
+    }
+
+    @Test
+    void logInWithoutLogin() {
+        boris.setName(null);
+        ResponseEntity responseEntity = authenticationController.loginUser(boris);
+        String[] response = responseEntity.getBody().toString().split("=");
+        Assertions.assertEquals( "«name» field empty or missing}", response[1]);
+    }
+
+    @Test
+    void logInWithEmptyPassword() {
+        boris.setPassword("");
+        ResponseEntity responseEntity = authenticationController.loginUser(boris);
+        String[] response = responseEntity.getBody().toString().split("=");
+        Assertions.assertEquals( "«password» field empty or missing}", response[1]);
+    }
+
+    @Test
+    void logInWithoutPassword() {
+        boris.setPassword(null);
+        ResponseEntity responseEntity = authenticationController.loginUser(boris);
+        String[] response = responseEntity.getBody().toString().split("=");
+        Assertions.assertEquals( "«password» field empty or missing}", response[1]);
+    }
+
+    @Test
+    void logInWithNotExistingUser() {
+        boris.setName("justRandomStrangerFromAbove");
+        boris.setPassword("LjhfoiuHBN76t87t8%Tr76gikF&*TPES");
+        ResponseEntity responseEntity = authenticationController.loginUser(boris);
+        String[] response = responseEntity.getBody().toString().split("=");
+        Assertions.assertEquals("invalid credentials}",response[1]);
+    }
+    @Test
+    void lsUserExisMethodTest() {
+        Assertions.assertFalse(userService.isUserExist(boris.getName()));
+    }
 }
