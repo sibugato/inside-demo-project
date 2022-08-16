@@ -9,24 +9,25 @@ import java.util.Objects;
  */
 
 @Entity
-@Table(name = "messages", schema = "public", catalog = "insideDB")
+@Table(name = "messages")
 public class Message {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
-    @Basic
-    @Column(name = "author", nullable = false, length = 32)
+    private Integer id;
+
+    @Column(name = "author", nullable = false)
     private String name;
-    @Basic
-    @Column(name = "message", nullable = false, length = -1)
+
+    @Column(name = "message", nullable = false)
     private String message;
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -46,16 +47,4 @@ public class Message {
         this.message = message;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Message message1 = (Message) o;
-        return Objects.equals(id, message1.id) && Objects.equals(name, message1.name) && Objects.equals(message, message1.message);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, name, message);
-    }
 }

@@ -8,23 +8,24 @@ import java.util.Objects;
 Переименовал "login" в "name"
  */
 @Entity
-@Table(name = "users", schema = "public", catalog = "insideDB")
+@Table(name = "users")
 public class User {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
-    @Column(name = "id", nullable = false)
-    private Long id;
-    @Basic
-    @Column(name = "login", nullable = false, length = 32)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private Integer id;
+
+    @Column(name = "login", nullable = false)
     private String name;
-    @Basic
-    @Column(name = "password", nullable = false, length = -1)
+
+    @Column(name = "password", nullable = false)
     private String password;
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -42,18 +43,5 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) && Objects.equals(name, user.name) && Objects.equals(password, user.password);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(name, password);
     }
 }
