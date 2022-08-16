@@ -43,19 +43,19 @@ public class MessagesController {
         // Проверка что параметр "name" передан в запросе и он не пустой
         if (requestMessage.getName() == null || requestMessage.getName().equals("")) {
             responseMap.put("error", "«name» field empty or missing");
-            return ResponseEntity.status(401).body(responseMap);
+            return ResponseEntity.status(406).body(responseMap);
         }
 
         // Проверка что параметр "message" передан в запросе и он не пустой
         else if (requestMessage.getMessage() == null || requestMessage.getMessage().equals("")) {
             responseMap.put("error", "«message» field empty or missing");
-            return ResponseEntity.status(401).body(responseMap);
+            return ResponseEntity.status(406).body(responseMap);
         }
 
         // Проверка что переданное имя соответствует существующему в БД пользователю
         else if (!userService.isUserExist(requestMessage.getName())) {
-            responseMap.put("status", "there is no such user");
-            return ResponseEntity.status(403).body(responseMap);
+            responseMap.put("error", "there is no such user");
+            return ResponseEntity.status(401).body(responseMap);
         }
 
         // Проверка что переданный в запросе токен принадлежит указанному пользователю
@@ -87,13 +87,13 @@ public class MessagesController {
                 // Если запрошено менее одного сообщения, то в ответ будет отправлено соответствующее предупреждение
                 if (messageQuantity < 1) {
                     responseMap.put("warning", "there, at zero and below, is nothing to show...");
-                    return ResponseEntity.ok(responseMap);
+                    return ResponseEntity.status(204).body(responseMap);
                 }
 
                 // Если в БД сейчас ни одного сообщения, то в ответ будет отправлено соответствующее уведомление
                 else if (messageService.showAll().size() == 0) {
                     responseMap.put("status", "there no messages for now, be first!");
-                    return ResponseEntity.ok(responseMap);
+                    return ResponseEntity.status(204).body(responseMap);
                 }
 
                 // В остальных случаях запрошенное (или максимально доступное) количество сообщений из БД вернётся в ответ в формате JSON.
@@ -108,8 +108,8 @@ public class MessagesController {
 
         // Если же это не был запрос истории сообщений - то здесь сообщение будет записано в БД
         messageService.saveMessage(requestMessage);
-        responseMap.put("status", "Message saved successfully");
-        return ResponseEntity.ok(responseMap);
+        responseMap.put("status", "message saved successfully");
+        return ResponseEntity.status(201).body(responseMap);
     }
 }
 

@@ -2,7 +2,7 @@ package com.sibgatullinvv.insidedemoproject.services;
 
 import com.sibgatullinvv.insidedemoproject.model.User;
 import com.sibgatullinvv.insidedemoproject.repositories.UserRepository;
-import com.sibgatullinvv.insidedemoproject.utils.EncodeUtil;
+import com.sibgatullinvv.insidedemoproject.utils.AesUtil;
 import com.sibgatullinvv.insidedemoproject.utils.JwtTokenUtil;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -51,7 +51,7 @@ public class UserService implements UserDetailsService {
     // Метод проверяет что переданный пароль пользователя соответствует хранящемуся в БД
     public boolean isPasswordCorrect(User testedUser) {
         User originalUser = getByLogin(testedUser.getName());
-        return testedUser.getPassword().equals(EncodeUtil.decrypt(originalUser.getPassword()));
+        return testedUser.getPassword().equals(AesUtil.decrypt(originalUser.getPassword(), AesUtil.SECRET));
     }
 
     // Метод проверяет что пользователь с переданным логином существует в БД
@@ -67,7 +67,7 @@ public class UserService implements UserDetailsService {
 
     // Метод добавляет нового пользователя в БД
     public void newUser(User user) {
-        user.setPassword(EncodeUtil.encrypt(user.getPassword()));
+        user.setPassword(AesUtil.encrypt(user.getPassword(), AesUtil.SECRET));
         userRepository.save(user);
     }
 

@@ -65,7 +65,7 @@ public class AuthenticationController {
         responseMap.put("status", "successful authorization");
         responseMap.put("user", user.getName());
         responseMap.put("token", userService.generateToken(user.getName()));
-        return ResponseEntity.ok(responseMap);
+        return ResponseEntity.status(202).body(responseMap);
     }
 
     /*
@@ -108,6 +108,6 @@ public class AuthenticationController {
         responseMap.put("status", "account created successfully");
         responseMap.put("user", user.getName());
         responseMap.put("token", userService.generateToken(user.getName()));
-        return ResponseEntity.ok(responseMap);
+        return ResponseEntity.status(201).body(responseMap);
     }
 }
