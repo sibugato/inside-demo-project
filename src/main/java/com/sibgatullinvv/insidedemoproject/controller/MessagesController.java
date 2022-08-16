@@ -35,9 +35,8 @@ public class MessagesController {
     а затем в данном эндпоинте идут описанные ниже процедуры.
      */
 
-    // P.s. мы тут к божественному классу приближаемся, до конца дня исправлю (17.08.2022)
     @PostMapping()
-    public ResponseEntity<?> writeMessage(@RequestBody Message requestMessage, HttpServletRequest request) {
+    public ResponseEntity<?> handleMessage(@RequestBody Message requestMessage, HttpServletRequest request) {
         Map<String, Object> responseMap = new LinkedHashMap<>();
         // Извлекаем имя пользователя из переданного токена (первичная проверка токена идёт в фильтре запросов)
         String username = jwtTokenUtil.getUsernameFromToken(request.getHeader("Authorization").substring(7));
