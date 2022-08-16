@@ -4,10 +4,12 @@ import com.sibgatullinvv.insidedemoproject.model.User;
 import com.sibgatullinvv.insidedemoproject.services.UserService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 /*
@@ -27,7 +29,10 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
-
+    @PostMapping("/test")
+    public List<User> test() {
+        return userService.usersList();
+    }
     /*
     POST endpoint для авторизации пользователя. В запросе ожидаются данные "name" и "password" в формате JSON.
     При наличии корректных данных начинаются описанные в методе проверки.
@@ -110,4 +115,6 @@ public class AuthenticationController {
         responseMap.put("token", userService.generateToken(user.getName()));
         return ResponseEntity.status(201).body(responseMap);
     }
+
+
 }

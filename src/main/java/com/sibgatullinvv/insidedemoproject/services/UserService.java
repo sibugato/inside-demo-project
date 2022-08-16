@@ -1,7 +1,7 @@
 package com.sibgatullinvv.insidedemoproject.services;
 
 import com.sibgatullinvv.insidedemoproject.model.User;
-import com.sibgatullinvv.insidedemoproject.repositories.UserRepository;
+import com.sibgatullinvv.insidedemoproject.dto.UserRepository;
 import com.sibgatullinvv.insidedemoproject.utils.AesUtil;
 import com.sibgatullinvv.insidedemoproject.utils.JwtTokenUtil;
 import org.springframework.security.core.GrantedAuthority;

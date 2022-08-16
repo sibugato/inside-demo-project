@@ -1,4 +1,4 @@
-version: "3.8.6"
+version: "3.8"
 services:
   app:
     container_name: inside-demo-project
@@ -6,7 +6,7 @@ services:
     build: ./
     restart: always
     ports:
-      - "2345:2345"mvn -version
+      - "2345:2345"
     depends_on:
       - postgres_db
     environment:

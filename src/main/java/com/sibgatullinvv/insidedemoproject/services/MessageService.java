@@ -1,7 +1,7 @@
 package com.sibgatullinvv.insidedemoproject.services;
 
 import com.sibgatullinvv.insidedemoproject.model.Message;
-import com.sibgatullinvv.insidedemoproject.repositories.MessageRepository;
+import com.sibgatullinvv.insidedemoproject.dto.MessageRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

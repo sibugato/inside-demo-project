@@ -1,4 +1,4 @@
-package com.sibgatullinvv.insidedemoproject.repositories;
+package com.sibgatullinvv.insidedemoproject.dto;
 
 import com.sibgatullinvv.insidedemoproject.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
