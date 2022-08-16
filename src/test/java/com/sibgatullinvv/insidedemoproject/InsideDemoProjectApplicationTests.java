@@ -9,6 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+/*
+В ближайшее время фуекционал тестирования будет значительно расширен. Пока познакомьтесь с Борисом.
+ */
+
 @SpringBootTest
 class InsideDemoProjectApplicationTests {
 
@@ -16,8 +20,15 @@ class InsideDemoProjectApplicationTests {
 	MessageService messageService;
 	@Autowired
 	UserService userService;
+	private User boris;
 
-	// Тестирование корректного добавления пользовател в БД
+	{
+		boris = new User();
+		boris.setName( "BorisTapochek33");
+		boris.setPassword("CoolBorisPassword99");
+	}
+
+	// добавления пользовател в БД
 	@Test
 	@Order(1)
 	void addingUserToDB() {
@@ -29,13 +40,11 @@ class InsideDemoProjectApplicationTests {
 	}
 
 
-	// Откат выполненных изменений в БД
+	// удаление пользователя из БД
 	@Test
-	@Order(99)
-	void cleanUpAfterTests() {
-		userService.deleteUser("Boris");
-		Assertions.assertEquals(1,1);
+	@Order(2)
+	void deleteUserFromDB() {
+		userService.deleteUser(boris.getName());
+		Assertions.assertFalse(userService.isUserExist(boris.getName()));
 	}
-
-
 }

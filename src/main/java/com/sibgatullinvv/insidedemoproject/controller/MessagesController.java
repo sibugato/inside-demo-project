@@ -34,6 +34,8 @@ public class MessagesController {
     В заголовке "Authorization" ожидается токен. Сначала в фильтре запросов идёт проверка валидности самого токена,
     а затем в данном эндпоинте идут описанные ниже процедуры.
      */
+
+    // P.s. мы тут к божественному классу приближаемся, до конца дня исправлю (16.08.2022)
     @PostMapping()
     public ResponseEntity<?> writeMessage(@RequestBody Message requestMessage, HttpServletRequest request) {
         Map<String, Object> responseMap = new LinkedHashMap<>();
@@ -87,13 +89,13 @@ public class MessagesController {
                 // Если запрошено менее одного сообщения, то в ответ будет отправлено соответствующее предупреждение
                 if (messageQuantity < 1) {
                     responseMap.put("warning", "there, at zero and below, is nothing to show...");
-                    return ResponseEntity.status(204).body(responseMap);
+                    return ResponseEntity.status(200).body(responseMap);
                 }
 
                 // Если в БД сейчас ни одного сообщения, то в ответ будет отправлено соответствующее уведомление
                 else if (messageService.showAll().size() == 0) {
                     responseMap.put("status", "there no messages for now, be first!");
-                    return ResponseEntity.status(204).body(responseMap);
+                    return ResponseEntity.status(200).body(responseMap);
                 }
 
                 // В остальных случаях запрошенное (или максимально доступное) количество сообщений из БД вернётся в ответ в формате JSON.

@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   app:
-    container_name: inside-demo-project
+    container_name: "InsideDemo_container"
     image: inside-demo-project
     build: ./
     restart: always
@@ -12,7 +12,7 @@ services:
     environment:
       - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres_db:5432/insideDB
   postgres_db:
-    image: "postgres:11.4"
+    image: "postgres:14.5"
     restart: always
     ports:
       - "5432:5432"

@@ -29,10 +29,6 @@ public class AuthenticationController {
         this.userService = userService;
     }
 
-    @PostMapping("/test")
-    public List<User> test() {
-        return userService.usersList();
-    }
     /*
     POST endpoint для авторизации пользователя. В запросе ожидаются данные "name" и "password" в формате JSON.
     При наличии корректных данных начинаются описанные в методе проверки.

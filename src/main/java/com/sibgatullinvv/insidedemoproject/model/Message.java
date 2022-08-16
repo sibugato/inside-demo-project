@@ -8,7 +8,6 @@ import java.util.Objects;
 Переименовал "author" в "name"
  */
 
-
 @Entity
 @Table(name = "messages", schema = "public", catalog = "insideDB")
 public class Message {

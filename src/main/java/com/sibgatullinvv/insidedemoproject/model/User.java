@@ -7,7 +7,6 @@ import java.util.Objects;
 Автоматически сгенерированный класс POJO для работы с таблицей "users".
 Переименовал "login" в "name"
  */
-
 @Entity
 @Table(name = "users", schema = "public", catalog = "insideDB")
 public class User {
@@ -21,7 +20,6 @@ public class User {
     @Basic
     @Column(name = "password", nullable = false, length = -1)
     private String password;
-
     public Long getId() {
         return id;
     }
