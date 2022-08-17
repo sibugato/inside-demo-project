@@ -2,8 +2,7 @@ version: "3.8"
 services:
   app:
     container_name: "InsideDemo_container"
-    image: "sibugato/inside-demo"
-    build: ./
+    image: "sibugato/inside-demo-project"
     restart: always
     ports:
       - "2345:2345"
