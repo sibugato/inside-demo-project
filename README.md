@@ -136,6 +136,9 @@ error: "«password» field empty or missing"           (401 Unauthorized)
 error: "user already exist"                          (401 Unauthorized)
 ```
 ```javascript
+error: "maximum username length is 32 characters"    (401 Unauthorized)
+```
+```javascript
 status: "account created successfully"               (201 Created)
 user:   "Имя пользователя"
 token: "*токен авторизации*"

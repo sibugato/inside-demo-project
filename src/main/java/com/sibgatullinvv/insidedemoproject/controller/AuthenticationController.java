@@ -101,6 +101,12 @@ public class AuthenticationController {
             return ResponseEntity.status(401).body(responseMap);
         }
 
+        // Проверка длины логина
+        else if (user.getName().length() > 32) {
+            responseMap.put("error", "maximum username length is 32 characters");
+            return ResponseEntity.status(401).body(responseMap);
+        }
+
         // На случай передачи в запросе поля "id" тут его удаляем.
         user.setId(null);
         // Добавляем нового пользователя в БД

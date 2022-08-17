@@ -48,6 +48,14 @@ class InsideDemoProjectApplicationTests {
     }
 
     @Test
+    void registerWithTooLongUsername() {
+        boris.setName("AbsolutelyAccurate33CharacterName");
+        ResponseEntity responseEntity = authenticationController.saveUser(boris);
+        String[] response = responseEntity.getBody().toString().split("=");
+        Assertions.assertEquals( "maximum username length is 32 characters}",response[1]);
+    }
+
+    @Test
     void logInWithEmptyPassword() {
         boris.setPassword("");
         ResponseEntity responseEntity = authenticationController.loginUser(boris);
